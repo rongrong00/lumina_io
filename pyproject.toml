@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lumina_io"
+version = "0.1.0"
+description = "Fast data loading for LUMINA simulations (Python API, parallel C++ HDF5 core)"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [{name = "Rongrong Liu", email = "rongrong.liu@cfa.harvard.edu"}]
+maintainers = [{name = "The LUMINA Collaboration"}]
+keywords = ["astronomy", "astrophysics", "cosmology", "simulation", "hdf5", "reionization"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: C++",
+    "Topic :: Scientific/Engineering :: Astronomy",
+]
+requires-python = ">=3.8"
+dependencies = ["numpy", "h5py"]
+
+[project.urls]
+Homepage = "https://lumina-simulation.com/"
+"Data access" = "https://lumina-simulation.com/data-access"
+Paper = "https://arxiv.org/abs/2605.15310"
+
+# The parallel C++ core is built out-of-band by ./build.sh, not by pip, so
+# pybind11 is an opt-in extra rather than a [build-system] requirement:
+#   pip install '.[core]' && HDF5_PREFIX=/path/to/hdf5 ./build.sh
+[project.optional-dependencies]
+core = ["pybind11"]
+
+[tool.setuptools]
+packages = ["lumina_io"]
+
+[tool.setuptools.package-data]
+lumina_io = ["_core*.so"]
